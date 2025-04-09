@@ -10,7 +10,5 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
-    "palette.js": "^0.0.5"
-  }
+  "dependencies": {}
 }
