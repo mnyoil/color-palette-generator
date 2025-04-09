@@ -20,7 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ------ دالة تحويل RGB إلى HEX ------
     function rgbToHex(r, g, b) {
-        return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
+        return '#' + [r, g, b]
+            .map(x => x.toString(16).padStart(2, '0'))
+            .join('')
+            .toUpperCase();
     }
 
     // ------ دالة عرض Toast ------
