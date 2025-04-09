@@ -1,0 +1,10 @@
+# رؤوس عامة لجميع الملفات
+/*
+  X-Content-Type-Options: nosniff
+  Cache-Control: max-age=3600
+  Strict-Transport-Security: max-age=31536000
+
+# رؤوس مخصصة لملفات معينة
+/images/*
+  X-Content-Type-Options: nosniff
+  Cache-Control: max-age=604800

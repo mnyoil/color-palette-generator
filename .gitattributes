@@ -1,4 +1,17 @@
-* text=auto
-*.js text eol=lf
-*.md text eol=lf
-*.bat text eol=crlf
+# ===== Global Settings =====
+* text=auto eol=lf
+
+# ===== Text Files (Unix Format) =====
+*.js    text eol=lf
+*.html  text eol=lf charset=utf-8
+*.css   text eol=lf charset=utf-8
+*.json  text eol=lf
+*.md    text eol=lf charset=utf-8
+
+# ===== Windows-Specific Files =====
+*.bat   text eol=crlf
+
+# ===== Binary Files =====
+*.png   binary
+*.jpg   binary
+*.zip   binary
