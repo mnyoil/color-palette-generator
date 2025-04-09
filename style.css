@@ -23,6 +23,16 @@ h1 {
 /* أقسام المحتوى */
 .settings {
   margin: 20px 0;
+  display: flex; /* لترتيب الـ label و select بجانب بعض */
+  justify-content: center; /* لتوسيطهما */
+  align-items: center; /* لمحاذاة عمودية */
+}
+
+/* تنسيق الـ label المضاف حديثاً */
+.settings label {
+    margin-left: 10px; /* إضافة هامش بجانب القائمة المنسدلة */
+    font-weight: bold;
+    color: #555;
 }
 
 .color-select {
@@ -49,11 +59,6 @@ h1 {
 .upload-btn:hover {
     background-color: #0056b3; /* لون أغمق عند المرور */
 }
-
-/* إخفاء input file الأصلي - موجود في HTML الآن */
-/* input[type="file"] {
-  display: none;
-} */
 
 .palette-grid {
   display: grid;
@@ -183,5 +188,13 @@ h1 {
     .toast {
         width: 90%; /* جعل التوست أعرض */
         bottom: 10px;
+    }
+    /* تحسين عرض الـ label والـ select على الشاشات الصغيرة */
+    .settings {
+        flex-direction: column; /* ترتيب عمودي */
+    }
+    .settings label {
+        margin-left: 0; /* إزالة الهامش الجانبي */
+        margin-bottom: 8px; /* إضافة هامش سفلي */
     }
 }
