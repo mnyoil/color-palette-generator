@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مولد باليتات الألوان</title>
     <link rel="stylesheet" href="style.css">
-
     <script src="vibrant.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>🎨 مولد باليتات الألوان</h1>
-
         <div class="settings">
             <label for="colorCount">اختر عدد الألوان:</label>
             <select id="colorCount" class="color-select">
@@ -21,22 +19,15 @@
                 <option value="12">12 ألوان</option>
             </select>
         </div>
-
         <div class="upload-section">
             <label for="imageUpload" class="upload-btn">
                 اختر صورة
-                <input type="file" id="imageUpload" accept="image/*" style="display: none;"> </label>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            </label>
         </div>
-
         <div id="paletteContainer" class="palette-grid"></div>
-
         <div id="loading" class="loading">جارٍ تحليل الصورة...</div>
-
-        <div class="testimonial">
-            <div class="quote">"أفضل أداة استخدمتها لاستخراج الألوان من الصور!"</div>
-            <div class="author">- أحمد، مصمم</div>
-        </div>
     </div>
-
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>

@@ -1,12 +1,9 @@
 /* الأساسيات */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: Arial, sans-serif;
   background-color: #f2f2f2;
   text-align: center;
   direction: rtl;
-  margin: 0;
-  padding: 0;
-  font-size: 16px; /* حجم خط افتراضي */
 }
 
 .container {
@@ -16,185 +13,30 @@ body {
 }
 
 h1 {
-  margin-bottom: 20px;
-  color: #333; /* لون أغمق للعنوان */
+  color: #333;
 }
 
-/* أقسام المحتوى */
-.settings {
-  margin: 20px 0;
-  display: flex; /* لترتيب الـ label و select بجانب بعض */
-  justify-content: center; /* لتوسيطهما */
-  align-items: center; /* لمحاذاة عمودية */
-}
-
-/* تنسيق الـ label المضاف حديثاً */
-.settings label {
-    margin-left: 10px; /* إضافة هامش بجانب القائمة المنسدلة */
-    font-weight: bold;
-    color: #555;
-}
-
-.color-select {
-    padding: 8px 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-}
-
-.upload-section {
-    margin-bottom: 20px; /* إضافة مسافة أسفل زر التحميل */
-}
-
+/* Upload Button */
 .upload-btn {
   background: #007bff;
   color: white;
-  padding: 12px 25px; /* زيادة الحجم قليلاً */
+  padding: 12px 25px;
   border-radius: 5px;
   cursor: pointer;
-  display: inline-block; /* لتمكين الهوامش والتوسيط */
-  transition: background-color 0.3s ease; /* تأثير انتقال سلس */
-}
-
-.upload-btn:hover {
-    background-color: #0056b3; /* لون أغمق عند المرور */
 }
 
 .palette-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 15px;
-  margin: 20px 0;
 }
 
-/* تعديل color-card (تم التحديث) */
 .color-card {
   height: 150px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* ظل أكثر وضوحًا */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* إضافة تأثير للظل */
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6); /* ظل نص أوضح */
-  position: relative;
-  padding: 10px; /* إضافة تباعد داخلي مطلوب */
-  cursor: pointer; /* تغيير المؤشر للإشارة إلى إمكانية النقر */
-  overflow: hidden; /* منع تجاوز المحتوى */
-}
-
-.color-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* ظل أكبر عند المرور */
-}
-
-/* تعديل small داخل color-card (تم التحديث) */
-.color-card small {
-  font-size: 0.8em;
-  margin-top: 8px;
-  background: rgba(0,0,0,0.4); /* خلفية شبه شفافة (تم التحديث من 0.3) */
-  padding: 3px 8px;
-  border-radius: 4px;
-  display: inline-block; /* لضمان تطبيق الخلفية بشكل صحيح */
-}
-
-/* تعديل الروابط التابعة */
-.color-card a {
-  color: #f0f0f0; /* لون أفتح قليلاً */
-  text-decoration: none;
-  font-size: 0.8em; /* تصغير الخط قليلاً */
-  margin-top: 10px;
-  padding: 4px 8px; /* تعديل الحشو */
-  background: rgba(0,0,0,0.5); /* خلفية أغمق قليلاً */
-  border-radius: 4px;
-  transition: background-color 0.2s;
-}
-.color-card a:hover {
-    background: rgba(0,0,0,0.7); /* خلفية أغمق عند المرور */
-}
-
-
-.loading {
-  display: none;
-  color: #666;
-  font-style: italic;
-  margin-top: 20px; /* إضافة مسافة علوية */
-}
-
-.testimonial {
-  margin-top: 40px;
-  padding: 20px;
-  background: #ffffff; /* خلفية بيضاء */
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* إضافة ظل خفيف */
-  max-width: 600px; /* تحديد عرض أقصى */
-  margin-left: auto;
-  margin-right: auto;
-}
-.testimonial .quote {
-    font-style: italic;
-    color: #555;
-    margin-bottom: 10px;
-}
-.testimonial .author {
-    font-weight: bold;
-    color: #333;
-}
-
-
-/* أنماط Toast */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85); /* خلفية أغمق قليلاً */
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* إضافة ظل */
-  animation: fadeInOut 2.5s ease-in-out; /* تعديل مدة الحركة */
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateX(-50%) translateY(10px); } /* إضافة حركة طفيفة */
-  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-}
-
-/* استعلامات الوسائط للتجاوب */
-@media (max-width: 480px) {
-    body {
-        font-size: 14px; /* تصغير حجم الخط للشاشات الصغيرة */
-    }
-    .palette-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* أعمدة أصغر */
-        gap: 10px; /* تقليل الفجوة */
-    }
-    .color-card {
-        height: 120px; /* تقليل ارتفاع البطاقة */
-    }
-    .upload-btn {
-        padding: 10px 20px; /* تصغير الزر */
-    }
-    h1 {
-        font-size: 1.8em; /* تصغير العنوان الرئيسي */
-    }
-    .toast {
-        width: 90%; /* جعل التوست أعرض */
-        bottom: 10px;
-    }
-    /* تحسين عرض الـ label والـ select على الشاشات الصغيرة */
-    .settings {
-        flex-direction: column; /* ترتيب عمودي */
-    }
-    .settings label {
-        margin-left: 0; /* إزالة الهامش الجانبي */
-        margin-bottom: 8px; /* إضافة هامش سفلي */
-    }
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
 }

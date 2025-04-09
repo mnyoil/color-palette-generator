@@ -10,5 +10,7 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {}
+  "dependencies": {
+    "node-vibrant": "^4.0.3"
+  }
 }
