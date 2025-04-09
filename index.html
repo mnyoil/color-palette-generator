@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مولد باليتات الألوان</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="vibrant.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <!-- المكتبات المطلوبة -->
+    <script src="https://cdn.jsdelivr.net/npm/vibrant.js@3.1.6/dist/vibrant.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>🎨 مولد باليتات الألوان</h1>
+        
+        <!-- اختيار عدد الألوان -->
         <div class="settings">
             <label for="colorCount">اختر عدد الألوان:</label>
             <select id="colorCount" class="color-select">
@@ -19,16 +22,23 @@
                 <option value="12">12 ألوان</option>
             </select>
         </div>
+
+        <!-- حقل تحميل الصورة -->
         <div class="upload-section">
             <label for="imageUpload" class="upload-btn">
                 اختر صورة
                 <input type="file" id="imageUpload" accept="image/*" style="display: none;">
             </label>
         </div>
+
+        <!-- عرض الباليتات -->
         <div id="paletteContainer" class="palette-grid"></div>
+
+        <!-- رسالة التحميل -->
         <div id="loading" class="loading">جارٍ تحليل الصورة...</div>
     </div>
-    <!-- تعديل السطر هنا لإضافة رقم الإصدار -->
-    <script src="script.js?v=1.0.0"></script>
+
+    <!-- ملف JavaScript مع إصدار فريد -->
+    <script src="script.js?v=1.1"></script>
 </body>
 </html>

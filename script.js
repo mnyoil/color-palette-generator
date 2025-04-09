@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ------ التحقق من دعم المتصفح ------
     if (!window.FileReader || !window.Blob || !window.URL || !navigator.clipboard) {
         alert("متصفحك لا يدعم بعض الميزات الضرورية (مثل File API أو Clipboard API). يُرجى التحديث للحصول على أفضل تجربة.");
+        return;
     }
 
     // ------ العناصر الرئيسية ------
@@ -27,30 +28,24 @@ document.addEventListener('DOMContentLoaded', () => {
             .toUpperCase();
     }
 
-    // ------ دالة عرض Toast ------
+    // ------ دالة عرض Toast (محسنة) ------
     function showToast(message) {
         const existingToast = document.querySelector('.toast');
-        if (existingToast) {
-            existingToast.remove();
-        }
+        if (existingToast) existingToast.remove();
 
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.textContent = message;
         document.body.appendChild(toast);
-        requestAnimationFrame(() => {
-            toast.style.opacity = 1;
-        });
 
         setTimeout(() => {
-            toast.style.opacity = 0;
-            toast.addEventListener('transitionend', () => toast.remove());
-            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 500);
-        }, 2500);
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 500);
+        }, 2000);
     }
 
-    // ------ معالجة تحميل الصورة ------
-    imageUpload.addEventListener('change', async function (e) {
+    // ------ معالجة تحميل الصورة (مدمجة) ------
+    imageUpload.addEventListener('change', async function(e) {
         const file = e.target.files[0];
         if (!file || !file.type.startsWith('image/')) {
             if (file) showToast("يرجى اختيار ملف صورة صالح.");
@@ -64,51 +59,45 @@ document.addEventListener('DOMContentLoaded', () => {
         img.crossOrigin = 'Anonymous';
         const reader = new FileReader();
 
-        reader.onload = function (event) {
+        reader.onload = async (event) => {
             img.src = event.target.result;
 
             img.onload = async () => {
-                loading.style.display = 'none';
                 let hasExtractedColors = false;
 
+                // ------ استخراج الألوان باستخدام ColorThief ------
                 try {
-                    // ------ استخراج الألوان باستخدام ColorThief ------
-                    console.log("Attempting ColorThief extraction...");
                     const colorThief = new ColorThief();
-                    const colorCount = parseInt(colorCountSelect.value);
-                    const palette = colorThief.getPalette(img, colorCount);
-                    if (palette && palette.length > 0) {
+                    const palette = colorThief.getPalette(img, parseInt(colorCountSelect.value));
+                    if (palette?.length > 0) {
                         const colors = palette.map(color => rgbToHex(...color));
                         renderPalette(colors, 'ColorThief');
                         hasExtractedColors = true;
                     }
                 } catch (err) {
                     console.error("ColorThief Error:", err);
-                    showToast("حدث خطأ أثناء استخراج الألوان باستخدام ColorThief.");
                 }
 
+                // ------ استخراج الألوان باستخدام Vibrant.js ------
                 try {
-                    // ------ استخراج الألوان باستخدام Vibrant.js ------
-                    console.log("Attempting Vibrant.js extraction...");
                     const vibrant = new Vibrant(img);
                     const vibrantPalette = await vibrant.swatches();
-                    if (vibrantPalette && Object.keys(vibrantPalette).length > 0) {
-                        const vibrantColors = Object.values(vibrantPalette)
-                            .filter(swatch => swatch)
-                            .map(swatch => swatch.hex.toUpperCase());
+                    const vibrantColors = Object.values(vibrantPalette)
+                        .filter(c => c)
+                        .map(c => c.hex.toUpperCase());
+                    
+                    if (vibrantColors.length > 0) {
                         renderPalette(vibrantColors, 'Vibrant.js');
                         hasExtractedColors = true;
                     }
                 } catch (err) {
                     console.error("Vibrant.js Error:", err);
-                    if (!hasExtractedColors) {
-                        showToast("حدث خطأ أثناء استخراج الألوان باستخدام Vibrant.js.");
-                    }
                 }
 
+                loading.style.display = 'none';
                 if (!hasExtractedColors) {
                     showToast("تعذر استخراج الألوان من هذه الصورة.");
-                    paletteContainer.innerHTML = '<p style="color: #666;">لم يتم العثور على ألوان بارزة.</p>';
+                    paletteContainer.innerHTML = '<p style="color: #666; text-align: center;">لم يتم العثور على ألوان بارزة.</p>';
                 }
             };
 
@@ -126,30 +115,53 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsDataURL(file);
     });
 
-    // ------ دالة عرض الباليت ------
+    // ------ دالة عرض الباليت (مُحسَّنة) ------
     function renderPalette(colors, source) {
-        if (!colors || colors.length === 0) return;
-
-        colors.forEach((color) => {
+        colors.forEach((color, index) => {
             const colorCard = document.createElement('div');
             colorCard.className = 'color-card';
             colorCard.style.backgroundColor = color;
-            const contrastColor = getContrastYIQ(color);
-            colorCard.style.color = contrastColor;
-            colorCard.innerHTML = `<div style="font-weight: bold;">${color}</div><small>${source}</small>`;
+            
+            // تحديد لون النص تلقائيًا
+            const textColor = getContrastYIQ(color);
+            colorCard.style.color = textColor;
+            
+            // محتوى البطاقة
+            colorCard.innerHTML = `
+                <div class="color-code">${color}</div>
+                <small class="source">${source}</small>
+            `;
+
+            // إضافة روابط تابعة عشوائية
+            if (index === 0 && Math.random() < 0.3) {
+                const affiliate = affiliateLinks[Math.floor(Math.random() * affiliateLinks.length)];
+                const link = document.createElement('a');
+                link.href = affiliate.url;
+                link.textContent = affiliate.text;
+                link.target = '_blank';
+                link.style.color = textColor;
+                colorCard.appendChild(link);
+            }
+
+            // نسخ اللون عند النقر
+            colorCard.addEventListener('click', () => {
+                navigator.clipboard.writeText(color);
+                showToast(`تم نسخ اللون: ${color}`);
+            });
+
             paletteContainer.appendChild(colorCard);
         });
     }
 
-    // ------ دالة لتحديد لون النص بناءً على خلفية اللون ------
+    // ------ دالة تحديد لون النص بناءً على الخلفية ------
     function getContrastYIQ(hexcolor) {
         hexcolor = hexcolor.replace("#", "");
         const r = parseInt(hexcolor.substr(0, 2), 16);
         const g = parseInt(hexcolor.substr(2, 2), 16);
         const b = parseInt(hexcolor.substr(4, 2), 16);
-        const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-        return (yiq >= 150) ? '#000000' : '#FFFFFF';
+        const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+        return yiq >= 150 ? '#000' : '#fff';
     }
 
-    console.log("Color Palette Generator Initialized!");
+    console.log("تم تهيئة مولد الألوان بنجاح!");
 });
